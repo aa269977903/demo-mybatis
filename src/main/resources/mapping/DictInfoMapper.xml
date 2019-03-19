@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cest.mapper.DictInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.cest.model.DictInfo" >
+    <id column="keyId" property="keyId" jdbcType="INTEGER" />
+    <result column="dictCode" property="dictCode" jdbcType="VARCHAR" />
+    <result column="dictInfoName" property="dictInfoName" jdbcType="VARCHAR" />
+    <result column="dictInfoValue" property="dictInfoValue" jdbcType="VARCHAR" />
+    <result column="dictInfoDesc" property="dictInfoDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    keyId, dictCode, dictInfoName, dictInfoValue, dictInfoDesc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from DictInfo
+    where keyId = #{keyid,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAllByDictCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from DictInfo
+    where dictCode = #{dictCode,jdbcType=VARCHAR}
+  </select>
+
+
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from DictInfo
+    where keyId = #{keyid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cest.model.DictInfo" >
+    insert into DictInfo (keyId, dictCode, dictInfoName, 
+      dictInfoValue, dictInfoDesc)
+    values (#{keyid,jdbcType=INTEGER}, #{dictcode,jdbcType=VARCHAR}, #{dictinfoname,jdbcType=VARCHAR}, 
+      #{dictinfovalue,jdbcType=VARCHAR}, #{dictinfodesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cest.model.DictInfo" >
+    insert into DictInfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="keyid != null" >
+        keyId,
+      </if>
+      <if test="dictcode != null" >
+        dictCode,
+      </if>
+      <if test="dictinfoname != null" >
+        dictInfoName,
+      </if>
+      <if test="dictinfovalue != null" >
+        dictInfoValue,
+      </if>
+      <if test="dictinfodesc != null" >
+        dictInfoDesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="keyid != null" >
+        #{keyid,jdbcType=INTEGER},
+      </if>
+      <if test="dictcode != null" >
+        #{dictcode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictinfoname != null" >
+        #{dictinfoname,jdbcType=VARCHAR},
+      </if>
+      <if test="dictinfovalue != null" >
+        #{dictinfovalue,jdbcType=VARCHAR},
+      </if>
+      <if test="dictinfodesc != null" >
+        #{dictinfodesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cest.model.DictInfo" >
+    update DictInfo
+    <set >
+      <if test="dictcode != null" >
+        dictCode = #{dictcode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictinfoname != null" >
+        dictInfoName = #{dictinfoname,jdbcType=VARCHAR},
+      </if>
+      <if test="dictinfovalue != null" >
+        dictInfoValue = #{dictinfovalue,jdbcType=VARCHAR},
+      </if>
+      <if test="dictinfodesc != null" >
+        dictInfoDesc = #{dictinfodesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where keyId = #{keyid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cest.model.DictInfo" >
+    update DictInfo
+    set dictCode = #{dictcode,jdbcType=VARCHAR},
+      dictInfoName = #{dictinfoname,jdbcType=VARCHAR},
+      dictInfoValue = #{dictinfovalue,jdbcType=VARCHAR},
+      dictInfoDesc = #{dictinfodesc,jdbcType=VARCHAR}
+    where keyId = #{keyid,jdbcType=INTEGER}
+  </update>
+</mapper>
